@@ -1,0 +1,248 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: StJoesSEA # NOTE: update this with your service name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  timeout: 40
+  region: us-west-2
+#  memorySize: 3008
+
+  stage: dev
+#  stage: prodGreen
+#  stage: prodBlue
+
+# you can overwrite defaults here
+
+
+# you can add statements to the Lambda function's IAM Role here
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:PutObject"
+#      Resource:
+#        Fn::Join:
+#          - ""
+#          - - "arn:aws:s3:::"
+#            - "Ref" : "ServerlessDeploymentBucket"
+#            - "/*"
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+# you can add packaging information here
+#package:
+#  include:
+#    - bbhsHandler.js
+#    - ../npmLibraries/SpreadsheetAccess/**
+#  exclude:
+#    - exclude-me.js
+#    - exclude-me-dir/**
+
+functions:
+
+
+  getAllCalendarDataSchedSummary:
+    handler: stJoesHandler.getAllCalendarDataSchedSummary
+    events:
+            - http:
+                path: /sched-sneak-peek
+                method: get
+
+  #
+  # getAllActivitiesFromCalendar:
+  #   handler: bbhsHandler.getAllArtsAndActivities
+  #   events:
+  #           - http:
+  #               path: /sports/activities-schedule
+  #               method: get
+  #
+  #
+  # getActivityFromCalendar:
+  #   handler: bbhsHandler.getArtsAndActivitiesFromCalendar
+  #   events:
+  #           - http:
+  #               path: /sports/activities-schedule/{activity}
+  #               method: get
+  #
+  #
+  # getSportsScheduleFromCalendar:
+  #   handler: bbhsHandler.getTeamScheduleFromCalendar
+  #   events:
+  #           - http:
+  #               path: /sports/calendar-schedule/{sport}
+  #               method: get
+  #
+  #
+  # getTwitterFeed:
+  #   handler: bbhsHandler.getTwitterFeed
+  #   events:
+  #           - http:
+  #               path: /sports/twitter/{sport}
+  #               method: get
+  #
+  # getActivityPictures:
+  #   handler: bbhsHandler.getActivityPictures
+  #   events:
+  #           - http:
+  #               path: /sports/pictures/{sport}
+  #               method: get
+  #
+  #
+  # getActivityKey:
+  #   handler: bbhsHandler.getActivityKey
+  #   events:
+  #           - http:
+  #               path: /sports/key/{sport}
+  #               method: get
+  #
+  #
+  # getTeamSchedule:
+  #   handler: bbhsHandler.getTeamSchedule
+  #   events:
+  #           - http:
+  #               path: /sports/schedule/{sport}
+  #               method: get
+  #
+  #
+  # getTeamRoster:
+  #   handler: bbhsHandler.getTeamRoster
+  #   events:
+  #           - http:
+  #               path: /sports/roster/{sport}
+  #               method: get
+  #
+  #
+  # getSportAnnouncement:
+  #   handler: bbhsHandler.getSportAnnouncement
+  #   events:
+  #           - http:
+  #               path: /sports/announcement/{sport}
+  #               method: get
+  #
+  #
+  # getSportTryoutInfo:
+  #   handler: bbhsHandler.getTryoutInfo
+  #   events:
+  #           - http:
+  #               path: /sports/tryouts/{sport}
+  #               method: get
+  #
+  # getSport:
+  #   handler: bbhsHandler.getSportDetails
+  #   events:
+  #           - http:
+  #               path: /sports/{sport}
+  #               method: get
+  #
+  # getListOfSports:
+  #   handler: bbhsHandler.getListOfSports
+  #   events:
+  #           - http:
+  #               path: /sports
+  #               method: get
+  #
+  # getListOfArtsActivities:
+  #   handler: bbhsHandler.getListOfArtsActivities
+  #   events:
+  #           - http:
+  #               path: /arts
+  #               method: get
+  #
+  # getListOfClubs:
+  #   handler: bbhsHandler.getListOfClubs
+  #   events:
+  #           - http:
+  #               path: /clubs
+  #               method: get
+  #
+
+  # getCoachContactInfo:
+  #   handler: teamHandler.getCoachContactInfo
+  #   events:
+  #           - http:
+  #               path: /teams/get-coach-contact
+  #               method: get
+  #
+  # getCoachReminder:
+  #   handler: teamHandler.getCoachReminder
+  #   events:
+  #           - http:
+  #               path: /teams/get-coach-reminder
+  #               method: get
+  #
+  # testSpreadsheetAccess:
+  #   handler: handler.testSpreadsheetAccess
+  #
+  # getClubNewsAndAnnouncements:
+  #   handler: handler.getClubNewsAndAnnouncements
+  #   events:
+  #           - http:
+  #               path: /news
+  #               method: get
+
+#    The following are a few example events you can configure
+#    NOTE: Please make sure to change your handler code to work with those events
+#    Check the event documentation for details
+#    events:
+#      - http:
+#          path: users/create
+#          method: get
+#      - s3: ${env:BUCKET}
+#      - schedule: rate(10 minutes)
+#      - sns: greeter-topic
+#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
+#      - alexaSkill
+#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
+#      - iot:
+#          sql: "SELECT * FROM 'some_topic'"
+#      - cloudwatchEvent:
+#          event:
+#            source:
+#              - "aws.ec2"
+#            detail-type:
+#              - "EC2 Instance State-change Notification"
+#            detail:
+#              state:
+#                - pending
+#      - cloudwatchLog: '/aws/lambda/hello'
+#      - cognitoUserPool:
+#          pool: MyUserPool
+#          trigger: PreSignUp
+
+#    Define function environment variables here
+#    environment:
+#      variable2: value2
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
